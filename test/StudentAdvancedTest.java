@@ -9,6 +9,12 @@ public class StudentAdvancedTest {
 		Pixel[][] image             = Utilities.generateRandomBWImage(10, 10, 42);
 		int[][]   disruption_matrix = Stencil.disruption(image);
 
+		for(int i = 0; i < disruption_matrix.length; i++){
+		    for(int j = 0; j < disruption_matrix[0].length; j++){
+		        System.out.print(disruption_matrix[i][j] + " ");
+            }
+            System.out.println("");
+        }
 
 
 		Seam seam = SeamCarving.carve_seam(disruption_matrix);

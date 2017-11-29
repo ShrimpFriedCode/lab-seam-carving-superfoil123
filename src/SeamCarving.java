@@ -10,16 +10,25 @@ public class SeamCarving {
 
 		//return traceBack of the translated disruption_matrix
 
-		return traceBack(translate(disruption_matrix));
+		//we need to calculate the disruption value or all else goes to hell in the tests.
+		int dis = 0;
+
+		ArrayList<Coord> points = traceBack(translate(disruption_matrix));
+
+		for(Coord c : points){
+
+			dis += disruption_matrix[c.x][c.y];
+
+		}
+
+		return new Seam(dis, points);
 
 	}
 
-	private static Seam traceBack(int[][] e){
+	private static ArrayList<Coord> traceBack(int[][] e){
 
 		int width = e[0].length;
 		int height = e.length;
-
-		int dis = 0;
 
 		//traceBack a given energy matrix
 
@@ -38,7 +47,6 @@ public class SeamCarving {
 			}
 		}
 
-		dis += min;
 		points.add(new Coord(curr.y, curr.x));
 
 		//System.out.println(e[0][1]);
@@ -52,13 +60,13 @@ public class SeamCarving {
 
 				if(e[curr.y-1][curr.x] < e[curr.y-1][curr.x+1]){
 					points.add(new Coord(curr.y-1, curr.x));
-					dis += e[curr.y-1][curr.x];
+
 					curr.y = curr.y-1;
 					//System.out.println("left edge dis: " + dis);
 				}
 				else {
 					points.add(new Coord(curr.y-1, curr.x+1));
-					dis += e[curr.y-1][curr.x+1];
+
 					curr.x = curr.x+1;
 					curr.y = curr.y-1;
 					//System.out.println("left edge dis: " + dis);
@@ -68,13 +76,13 @@ public class SeamCarving {
 
 				if(e[curr.y-1][curr.x] < e[curr.y-1][curr.x-1]){
 					points.add(new Coord(curr.y-1, curr.x));
-					dis += e[curr.y-1][curr.x];
+
 					curr.y = curr.y-1;
 					//System.out.println("right edge dis: " + dis);
 				}
 				else {
 					points.add(new Coord(curr.y-1, curr.x-1));
-					dis += e[curr.y-1][curr.x-1];
+
 					curr.x = curr.x-1;
 					curr.y = curr.y-1;
 					//System.out.println("right edge dis: " + dis);
@@ -87,7 +95,7 @@ public class SeamCarving {
 
 				if(min == e[curr.y-1][curr.x]){
 					points.add(new Coord(curr.y-1, curr.x));
-					dis += e[curr.y-1][curr.x];
+
 					//System.out.println(curr.x + ", " + (curr.y-1));
 					//System.out.println(e[curr.x][curr.y-1]);
 					curr.y = curr.y-1;
@@ -95,14 +103,14 @@ public class SeamCarving {
 				}
 				else if(min == e[curr.y-1][curr.x-1]){
 					points.add(new Coord(curr.y-1, curr.x-1));
-					dis += e[curr.y-1][curr.x-1];
+
 					curr.x = curr.x-1;
 					curr.y = curr.y-1;
 					//System.out.println("gen dis 1: " + dis);
 				}
 				else{
 					points.add(new Coord(curr.y-1, curr.x+1));
-					dis += e[curr.y-1][curr.x+1];
+
 					curr.x = curr.x+1;
 					curr.y = curr.y-1;
 					//System.out.println("gen dis 2: " + dis);
@@ -117,7 +125,7 @@ public class SeamCarving {
 			System.out.println(c.x + ", " + c.y);
 		}
 
-		return new Seam(dis, points);
+		return points;
 
 	}
 
@@ -194,8 +202,10 @@ public class SeamCarving {
 			System.out.println("");
 		}
 */
-		Seam s = carve_seam(disruption_matrix);
-		System.out.println(s.disruption);
+		//Seam s = carve_seam(disruption_matrix);
+		//System.out.println(s.disruption);
+
+
 
 	}
 
