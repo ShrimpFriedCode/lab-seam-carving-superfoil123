@@ -1,6 +1,6 @@
 public class Coord {
-	public final int x;
-	public final int y;
+	public int x;
+	public int y;
 
 	public Coord(final int arg_x, final int arg_y) {
 		this.x = arg_x;
