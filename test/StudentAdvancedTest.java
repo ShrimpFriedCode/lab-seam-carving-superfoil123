@@ -9,6 +9,8 @@ public class StudentAdvancedTest {
 		Pixel[][] image             = Utilities.generateRandomBWImage(10, 10, 42);
 		int[][]   disruption_matrix = Stencil.disruption(image);
 
+		
+
 		Seam seam = SeamCarving.carve_seam(disruption_matrix);
 
 		assertEquals(2460, seam.disruption);
